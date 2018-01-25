@@ -2,6 +2,8 @@ package com.wuyong.permission.mapper;
 
 import com.wuyong.permission.model.SysDept;
 
+import java.util.List;
+
 public interface SysDeptMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,7 @@ public interface SysDeptMapper {
     int updateByPrimaryKeySelective(SysDept record);
 
     int updateByPrimaryKey(SysDept record);
+
+
+    List<SysDept> getAllSysDept();
 }

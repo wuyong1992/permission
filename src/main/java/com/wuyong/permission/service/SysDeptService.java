@@ -9,7 +9,7 @@ import com.wuyong.permission.param.DeptParam;
  */
 public interface SysDeptService {
 
-    void save(DeptParam deptParam);
+    int save(DeptParam deptParam);
 
     boolean checkExist(Integer parentId, String deptName, Integer deptId);
 

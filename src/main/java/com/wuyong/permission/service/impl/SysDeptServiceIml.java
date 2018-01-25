@@ -25,7 +25,7 @@ public class SysDeptServiceIml implements SysDeptService {
 
 
     @Override
-    public void save(DeptParam deptParam) {
+    public int save(DeptParam deptParam) {
         if (checkExist(deptParam.getParentId(), deptParam.getName(), deptParam.getId())) {
             throw new SecurityException("同一层级下该部门已存在");
         }
@@ -43,9 +43,11 @@ public class SysDeptServiceIml implements SysDeptService {
         sysDept.setLevel(LevelUtil.calculateLevel(level, deptParam.getParentId()));
 
         sysDept.setOperator("system");  // todo
-        sysDept.setOperateIp("123.0.1");    // todo
+        sysDept.setOperateIp("127.0.0.1");    // todo
         sysDept.setOperateTime(new Date()); // todo
 
+        int i = sysDeptMapper.insertSelective(sysDept);
+        return i;
     }
 
 
