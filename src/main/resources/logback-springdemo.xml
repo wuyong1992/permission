@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 定义常量 -->
+    <!-- log输出模板 -->
+    <!-- 时间 进程号 日志级别，-5表示从左显示5个字符宽度，方便对齐 日志名称 实际的日志内容 换行符 -->
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg %n"/>
+    <!-- 日志输出路劲 -->
+    <!-- dev环境 -->
+    <property name="DEV_FILE_PATH" value="H:/log"/>
+    <!-- prod环境 -->
+    <property name="PROD_FILE_PATH" value="/developer/sbdemo/logs"/>
+
+
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <!-- 控制台输出 -->
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </layout>
+        </appender>
+        <!-- RollingFileAppender 滚动输出 -->
+        <!-- error级别的日志输出文件 -->
+<!--        <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            &lt;!&ndash; 滚动策略 &ndash;&gt;
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                &lt;!&ndash; 路径 &ndash;&gt;
+                <fileNamePattern>
+                    ${DEV_FILE_PATH}/error/error.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        &lt;!&ndash; warn级别的日志输出文件 &ndash;&gt;
+        <appender name="file-warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            &lt;!&ndash; 过滤掉error级别的日志 &ndash;&gt;
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>DEBUG</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            &lt;!&ndash; 滚动策略 &ndash;&gt;
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                &lt;!&ndash; 路径 &ndash;&gt;
+                <fileNamePattern>
+                    ${DEV_FILE_PATH}/warn/warn.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        &lt;!&ndash; info级别的日志输出文件 &ndash;&gt;
+        <appender name="file-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            &lt;!&ndash; 过滤掉error、warn级别的日志 &ndash;&gt;
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>WARN</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>DEBUG</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            &lt;!&ndash; 滚动策略 &ndash;&gt;
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                &lt;!&ndash; 路径 &ndash;&gt;
+                <fileNamePattern>
+                    ${DEV_FILE_PATH}/info/info.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        &lt;!&ndash; debug级别的日志输出文件 &ndash;&gt;
+        <appender name="file-debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            &lt;!&ndash; 过滤掉info、error、warn级别的日志 &ndash;&gt;
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>WARN</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            &lt;!&ndash; 滚动策略 &ndash;&gt;
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                &lt;!&ndash; 路径 &ndash;&gt;
+                <fileNamePattern>
+                    ${DEV_FILE_PATH}/debug/debug.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>-->
+
+
+        <root level="debug">
+            <appender-ref ref="console"/>
+            <!--<appender-ref ref="file-error"/>-->
+            <!--<appender-ref ref="file-warn"/>-->
+            <!--<appender-ref ref="file-info"/>-->
+            <!--<appender-ref ref="file-debug"/>-->
+        </root>
+    </springProfile>
+
+    <!-- 生产环境 -->
+    <springProfile name="prod">
+        <!-- RollingFileAppender 滚动输出 -->
+        <!-- error级别的日志输出文件 -->
+        <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            <!-- 滚动策略 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 路径 -->
+                <fileNamePattern>
+                    ${PROD_FILE_PATH}/error/error.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        <!-- warn级别的日志输出文件 -->
+        <appender name="file-warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 过滤掉error级别的日志 -->
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>DEBUG</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            <!-- 滚动策略 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 路径 -->
+                <fileNamePattern>
+                    ${PROD_FILE_PATH}/warn/warn.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        <!-- info级别的日志输出文件 -->
+        <appender name="file-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 过滤掉error、warn级别的日志 -->
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>WARN</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>DEBUG</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            <!-- 滚动策略 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 路径 -->
+                <fileNamePattern>
+                    ${PROD_FILE_PATH}/info/info.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+        <!-- debug级别的日志输出文件 -->
+        <appender name="file-debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- 过滤掉info、error、warn级别的日志 -->
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>WARN</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>DEBUG</level>
+                <onMatch>DENY</onMatch>
+            </filter>
+            <encoder>
+                <pattern>
+                    ${PATTERN}
+                </pattern>
+            </encoder>
+            <!-- 滚动策略 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- 路径 -->
+                <fileNamePattern>
+                    ${PROD_FILE_PATH}/debug/debug.%d.log
+                </fileNamePattern>
+            </rollingPolicy>
+        </appender>
+
+
+        <root level="debug">
+            <appender-ref ref="file-error"/>
+            <appender-ref ref="file-warn"/>
+            <appender-ref ref="file-info"/>
+            <appender-ref ref="file-debug"/>
+        </root>
+    </springProfile>
+
+</configuration>
